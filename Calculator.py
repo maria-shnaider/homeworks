@@ -1,27 +1,34 @@
 def count(elements):
-    element_count = int(input("Enter the number of elements: "))
-    while element_count < elements:
-        print("Please, enter a number starting from 2")
+    element_count = input("Enter the number of elements: ")
+    def wrong_element():
+        print("Enter any number starting from {}".format(elements))
         return count(elements)
+    if not element_count.isdigit():
+        return wrong_element()
     else:
-        return element_count
+        if int(element_count) < elements:
+            return wrong_element()
+        else:
+            return int(element_count)
 
 
 def enter_number():
-    try:
-        input_number = int(input("Enter the number: "))
-    except ValueError:
-        print('Please, enter a number!')
-        enter_number()
+        try:
+            input_number = float(input("Enter the number: "))
+            return input_number
+        except ValueError:
+            print('Please, enter any number!')
+            return enter_number()
 
 
 def enter_operator():
-    valid_operators = ["*", "-", "+", "/"]
+    valid_operators = ["+", "-", "*", "/", "^"]
     input_operator = input("Enter operator: ")
     if input_operator in valid_operators:
         return_operator = input_operator
     else:
-        enter_operator()
+        print("Enter one of the following operators: {}".format(", ".join(valid_operators)))
+        return enter_operator()
     return return_operator
 
 
@@ -41,15 +48,14 @@ def calculate():
         elif temp_operator == "/":
             temp_number = enter_number()
             while temp_number == 0:
-                print("U cant enter zero value")
+                print("You can't divide by zero! Enter another number")
                 temp_number = enter_number()
             else:
                 result /= temp_number
-
-    print(result)
-
-
-calculate()
+        elif temp_operator == "^":
+            result **= enter_number()
+    return result
 
 
+print("%.3f" % calculate())
 
