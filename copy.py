@@ -28,6 +28,7 @@ def enter_operator():
         return_operator = input_operator
     else:
         print("Enter one of the following operators: {}".format(", ".join(valid_operators)))
+        print("New line")
         return enter_operator()
     return return_operator
 
